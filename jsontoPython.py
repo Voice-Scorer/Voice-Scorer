@@ -23,7 +23,7 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 
 # Once the model is created, you can load the weights
 # You'll need to have the weights file in the appropriate format for TensorFlow in Python
-# weights_path = 'path_to_converted_weights_file'
-# model.load_weights(weights_path)
+weights_path = 'path_to_converted_weights_file'
+model.load_weights(weights_path)
 
 # Now your model is ready to use
