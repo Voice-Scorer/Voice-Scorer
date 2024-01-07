@@ -18,7 +18,6 @@ def get_data():
     # ...
     # and then return it 
 
-    # delete file (seems to not be working? might be a timing thing...)
     file = "temp/recording.wav"
     try:
         os.remove(file)

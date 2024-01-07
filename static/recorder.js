@@ -16,9 +16,6 @@ async function toggleRecording() {
 
     mediaRecorder.onstop = () => {
       const recordedBlob = new Blob(recordedChunks, { type: 'audio/wav' });
-      const recordedAudio = document.getElementById('recordedAudio');
-      recordedAudio.src = URL.createObjectURL(recordedBlob);
-
       // send recording to backend on stop
       sendData(recordedBlob);
     };

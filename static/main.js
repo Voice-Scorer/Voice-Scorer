@@ -1,5 +1,6 @@
 document.getElementById('recordButton').addEventListener('click', () => {
     toggleRecording();
+    
   });
   
   function sendData(audioBlob) {
@@ -23,3 +24,4 @@ document.getElementById('recordButton').addEventListener('click', () => {
       console.error('Error:', error);
     });
   }
+
