@@ -3,6 +3,31 @@ window.addEventListener('DOMContentLoaded', function() {
   const mainElement = document.getElementById("mainElement");
   const returnText = document.getElementById("returnText"); 
   const loadingIcon = document.getElementById("loadingIcon");
+  const randomButton = document.getElementById("randomButton"); // New button
+
+
+  const names = ["Donald Trump", "SpongeBob", "Kayne West", "Marge Simpson", "Squidward Tenticles", "Morgan Freeman", "Andrew Tate", "Kendric Lamar"];
+
+  // Existing event listeners and functions
+
+  // New functionality for random number picking
+  randomButton.addEventListener('click', () => {
+    const randomIndex = Math.floor(Math.random() * names.length);
+    const randomName = names[randomIndex];
+    mainElement.textContent = randomName; // Display the random name
+ // Display the random number
+    mainElement.style.display = "flex";
+    mainElement.classList.add('slotMachineAnimation'); // Add slot machine animation class
+  });
+
+  // Slot machine animation end event
+  mainElement.addEventListener('animationend', (event) => {
+    if (event.animationName === 'slotMachineAnimation'){  
+      mainElement.classList.remove('slotMachineAnimation');
+    }
+  });
+
+// Ensure to define the 'slotMachineAnimation' in your CSS with appropriate keyframes
 
   recordButton.addEventListener('animationend', (event) => {
     if (event.animationName === 'moveAndFadeOut'){  
@@ -48,6 +73,7 @@ function sendData(audioBlob) {
   // display response
   .then(response => response.json())
   .then(data => {
+    // dismiss loading icon
     loadingIcon.addEventListener('animationiteration', () => {
       loadingIcon.classList.remove("loadAnimation");
       loadingIcon.classList.add("moveAndFadeOut");
@@ -56,9 +82,22 @@ function sendData(audioBlob) {
       if (event.animationName === "moveAndFadeOut"){
       loadingIcon.style.display = "none";
       loadingIcon.classList.remove("moveAndFadeOut");
+
+      // format the response and add to div
+      const score = data.score;
+      const character = data.character;
+      returnText.innerHTML = "Your score for " + character + "'s voice is " + score + "!";
+
+      // the div gets centered weird so gotta do it here
+      returnText.style.position = "absolute";
+      returnText.style.transform = "translate(-50%,-50%)";
+      returnText.style.display = "flex";
+      returnText.classList.add("moveAndFadeIn");
+
     }});
-    // display response
-    const returned_data = data.return_data;
+
+
+    
   })
 
   // error case
