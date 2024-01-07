@@ -1,29 +1,44 @@
 import tensorflow as tf
-import json
+import numpy as np
+import librosa  # For audio processing
 
-# Load your JSON data
-json_data = 'your_json_string_here'
-data = json.loads(json_data)
+# Load your pre-trained model (Ensure you have the model files)
+model = tf.keras.models.load_model('path_to_your_model.h5')
 
-# Recreate the model architecture in TensorFlow
-# This will depend on your specific model configuration
-# Below is a simplified example
+def preprocess_audio(audio_path, sr=16000, n_mfcc=13, n_fft=2048, hop_length=512):
+    # Load the audio file
+    audio, _ = librosa.load(audio_path, sr=sr)
 
-# Example of creating a simple sequential model
-model = tf.keras.Sequential()
+    # Extract MFCCs from the audio
+    mfccs = librosa.feature.mfcc(audio, sr=sr, n_mfcc=n_mfcc, n_fft=n_fft, hop_length=hop_length)
 
-# Add each layer as per the JSON configuration
-# For example, if you have a Conv2D layer in your JSON:
-# model.add(tf.keras.layers.Conv2D(filters=8, kernel_size=(2, 8), activation='relu', input_shape=(43, 232, 1)))
+    # Transpose the result to align with the model's expected input
+    mfccs = mfccs.T
 
-# Continue adding all layers as per your JSON data...
+    # Add a dimension to match the input shape of the model (batch_size, timesteps, features)
+    mfccs = np.expand_dims(mfccs, axis=0)
 
-# Compile the model (you'll need to specify the loss and optimizer according to your use case)
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    return mfccs
 
-# Once the model is created, you can load the weights
-# You'll need to have the weights file in the appropriate format for TensorFlow in Python
-weights_path = 'path_to_converted_weights_file'
-model.load_weights(weights_path)
+def interpret_prediction(prediction):
+    # Assuming the prediction is a softmax output
+    predicted_label_index = np.argmax(prediction)
+    return predicted_label_index
 
-# Now your model is ready to use
+def predict(audio_path):
+    # Preprocess the audio
+    processed_audio = preprocess_audio(audio_path)
+
+    # Predict using your model
+    prediction = model.predict(processed_audio)
+
+    # Interpret the prediction
+    predicted_label = interpret_prediction(prediction)
+
+    return predicted_label
+
+# Use the function
+audio_path = 'path_to_your_audio_file.wav'
+label = predict(audio_path)
+print("Predicted Label:", label)
+
