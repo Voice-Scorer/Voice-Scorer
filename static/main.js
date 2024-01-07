@@ -66,6 +66,17 @@ setTimeout(() => {
 
 });
 
+function displayImageForName(name) {
+  const imageElement = document.getElementById('displayedImage');
+
+  // Assuming you have a way to determine the image source based on the name
+  const imageUrl = '/path/to/images/' + name + '.jpg'; // Modify as needed
+
+  imageElement.src = imageUrl;
+  imageElement.alt = 'Image for ' + name;
+  imageElement.style.display = 'block'; // Show the image
+}
+
 function sendData(audioBlob) {
 
   const formData = new FormData();
