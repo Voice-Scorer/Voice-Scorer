@@ -1,8 +1,16 @@
 window.addEventListener('DOMContentLoaded', function() {
+  const randomButton = document.getElementById("randomButton");
   const recordButton = document.getElementById("recordButton");
   const mainElement = document.getElementById("mainElement");
   const returnText = document.getElementById("returnText"); 
   const loadingIcon = document.getElementById("loadingIcon");
+
+  randomButton.addEventListener('animationend', (event) => {
+    if (event.animationName === 'moveAndFadeOut'){
+      randomButton.style.display = 'none';
+      randomButton.classList.remove('moveAndFadeOut');
+    }
+  });
 
   recordButton.addEventListener('animationend', (event) => {
     if (event.animationName === 'moveAndFadeOut'){  
