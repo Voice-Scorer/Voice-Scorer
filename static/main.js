@@ -4,6 +4,31 @@ window.addEventListener('DOMContentLoaded', function() {
   const returnText = document.getElementById("returnText"); 
   const loadingIcon = document.getElementById("loadingIcon");
   const audioPlayer = document.getElementById("audioPlayer");
+  const randomButton = document.getElementById("randomButton"); // New button
+
+
+  const names = ["Donald Trump", "SpongeBob", "Kayne West", "Marge Simpson", "Squidward Tenticles", "Morgan Freeman", "Andrew Tate", "Kendric Lamar"];
+
+  // Existing event listeners and functions
+
+  // New functionality for random number picking
+  randomButton.addEventListener('click', () => {
+    const randomIndex = Math.floor(Math.random() * names.length);
+    const randomName = names[randomIndex];
+    mainElement.textContent = randomName; // Display the random name
+ // Display the random number
+    mainElement.style.display = "flex";
+    mainElement.classList.add('slotMachineAnimation'); // Add slot machine animation class
+  });
+
+  // Slot machine animation end event
+  mainElement.addEventListener('animationend', (event) => {
+    if (event.animationName === 'slotMachineAnimation'){  
+      mainElement.classList.remove('slotMachineAnimation');
+    }
+  });
+
+// Ensure to define the 'slotMachineAnimation' in your CSS with appropriate keyframes
 
   recordButton.addEventListener('animationend', (event) => {
     if (event.animationName === 'moveAndFadeOut'){  
