@@ -29,7 +29,6 @@ async function toggleRecording() {
     }, 10000);
 
     isRecording = true;
-    document.getElementById('recordButton').textContent = 'Stop Recording';
   } else {
     stopRecording();
   }
@@ -40,6 +39,5 @@ function stopRecording() {
     mediaRecorder.stop();
     clearTimeout(timeoutId); // clear the auto stop timeout
     isRecording = false;
-    document.getElementById('recordButton').textContent = 'Start Recording';
   }
 }

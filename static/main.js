@@ -1,5 +1,20 @@
-document.getElementById('recordButton').addEventListener('click', () => {
-    toggleRecording();
+const recordButton = document.getElementById("recordButton");
+
+recordButton.addEventListener('animationend', (event) => {
+  if (event.animationName === 'fadeOut'){  
+    recordButton.style.display = "none";
+    recordButton.classList.remove('fadeOut');
+  }
+
+});
+
+// functionality for recording
+recordButton.addEventListener('click', () => {
+  // animate the button
+  recordButton.classList.add('fadeOut');
+
+  // record
+  toggleRecording();
     
   });
   

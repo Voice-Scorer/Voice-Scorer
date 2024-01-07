@@ -13,6 +13,28 @@
     background: #000;
   }
   
+  @keyframes moveAndFadeOut {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+  }
+  
+  @keyframes moveAndFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   button {
     position: absolute;
     left: 50%;
@@ -38,6 +60,18 @@
     &:hover {
       box-shadow: 0 0 30px 5px rgba( 255, 255, 255, .75 );
     }
+}
+  
+  .fadeOut{
+    animation-name: moveAndFadeOut;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+  }
+
+  .fadeIn {
+    animation-name: moveAndFadeIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
   }
 
   main {
@@ -65,3 +99,22 @@
     }
   }
   
+  @keyframes moveAndFadeOut {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+  }
+  
+  #startButton {
+    /* Other button styles */
+  
+    /* Apply animation properties */
+    animation-name: moveAndFadeOut;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards; /* Keep the button in its final state after animation ends */
+  }
