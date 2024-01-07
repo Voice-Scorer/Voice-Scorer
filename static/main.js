@@ -3,6 +3,7 @@ window.addEventListener('DOMContentLoaded', function() {
   const mainElement = document.getElementById("mainElement");
   const returnText = document.getElementById("returnText"); 
   const loadingIcon = document.getElementById("loadingIcon");
+  const audioPlayer = document.getElementById("audioPlayer");
 
   recordButton.addEventListener('animationend', (event) => {
     if (event.animationName === 'moveAndFadeOut'){  
@@ -51,23 +52,40 @@ function sendData(audioBlob) {
     // dismiss loading icon
     loadingIcon.addEventListener('animationiteration', () => {
       loadingIcon.classList.remove("loadAnimation");
+      loadingIcon.innerHTML = ("🤓");
       loadingIcon.classList.add("moveAndFadeOut");
     });
     loadingIcon.addEventListener('animationend', (event) => {
       if (event.animationName === "moveAndFadeOut"){
       loadingIcon.style.display = "none";
+      loadingIcon.innerHTML = ("🤔");
       loadingIcon.classList.remove("moveAndFadeOut");
 
       // format the response and add to div
       const score = data.score;
       const character = data.character;
-      returnText.innerHTML = "Your score for " + character + "'s voice is " + score + "!";
+        
+      // get the audio player to play the end quip
+      
+      audioPlayer.src = "/audio";
 
+      if (score >= 50){
+        returnText.innerHTML = "Good job! Your impression of " + character + "'s voice is worth " + score + " points!";
+      }
+      else if (score < 50) {
+        returnText.innerHTML = "Womp womp. Your impression of " + character + "'s voice is only worth " + score + " points.";
+      }
+      
       // the div gets centered weird so gotta do it here
       returnText.style.position = "absolute";
       returnText.style.transform = "translate(-50%,-50%)";
       returnText.style.display = "flex";
+      returnText.style.margin = "0px 20px 0px 20px"
       returnText.classList.add("moveAndFadeIn");
+
+      // end quip
+      audioPlayer.load();
+      audioPlayer.play();
 
     }});
 
