@@ -23,10 +23,10 @@ async function toggleRecording() {
     // start recording
     mediaRecorder.start();
 
-    // auto stop after 10 seconds
+    // auto stop after 5 seconds
     timeoutId = setTimeout(() => {
       stopRecording();
-    }, 1000);
+    }, 5000);
 
     isRecording = true;
   } else {

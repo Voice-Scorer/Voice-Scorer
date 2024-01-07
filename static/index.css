@@ -51,12 +51,19 @@
     }
   }
   
-  #randomButton {
-    animation-name: moveAndFadeIn;
-  }
-
   #recordButton {
     display: none;
+    text-align: center;
+    
+  }
+
+  #characterRoll {
+    position: absolute;
+    top: 10%;
+    display: flex;
+    color: #fff;
+    font-family: customFont;
+    font-size: 2em;
   }
   
   #returnText {
@@ -170,7 +177,23 @@
 
   .loadAnimation {
     animation-name: rotate;
-    animation-duration: 3s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier();
+  }
+
+  @keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+  }
+  .slideDown {
+    animation-name: slideDown;
+    animation-duration: 2s;
     animation-timing-function: cubic-bezier();
   }

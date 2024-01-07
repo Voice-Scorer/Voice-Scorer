@@ -1,15 +1,16 @@
+var finalResultIndex = "undefined";
+
 window.addEventListener('DOMContentLoaded', function() {
   const recordButton = document.getElementById("recordButton");
   const mainElement = document.getElementById("mainElement");
   const returnText = document.getElementById("returnText"); 
   const loadingIcon = document.getElementById("loadingIcon");
   const audioPlayer = document.getElementById("audioPlayer");
-  const randomButton = document.getElementById("randomButton"); // New button
-  const resultButton = document.getElementById('randomButton');
+  const randomButton = document.getElementById('randomButton');
+  const characterRoll = document.getElementById("characterRoll");
 
   const names = ["Donald Trump", "SpongeBob", "Kayne West", "Marge Simpson", "Squidward Tentacles", "Morgan Freeman", "Andrew Tate", "Kendrick Lamar"];
 
-  
   recordButton.addEventListener('animationend', (event) => {
     if (event.animationName === 'moveAndFadeOut'){  
       recordButton.style.display = "none";
@@ -20,49 +21,64 @@ window.addEventListener('DOMContentLoaded', function() {
   // functionality for recording
   recordButton.addEventListener('click', () => {
     // animate the button and visuals
+    characterRoll.style.display = "none";
+    recordButton.classList.remove("moveAndFadeIn");
     recordButton.classList.add('moveAndFadeOut');
     mainElement.style.display = "flex";
-    mainElement.classList.add('fadeIn');
     // record
     toggleRecording();
   });
 
-// Boolean flag to control the animation
-let isCycling = false;
+  // Boolean flag to control the animation
+  let isCycling = false;
 
-// Function to cycle through the text array
-function cycleText(index) {
-  resultButton.textContent = names[index];
-  
-  // Adjust the speed of cycling here (you can use timeouts or intervals)
-  // This is a simple example, adjust the logic to slow down the cycling
-  setTimeout(() => {
-    if (isCycling) {
-      const nextIndex = (index + 1) % names.length;
-      cycleText(nextIndex);
-    }
-  }, 100); // Adjust the interval duration for cycling
-}
+  var cycles = 15
 
-// Event listener for the button click
-resultButton.addEventListener('click', () => {
-  isCycling = true;
-  cycleText(0); // Start cycling through the text array
-});
+  // Function to cycle through the text array
+  function cycleText(index) {
+    characterRoll.innerHTML = names[index];
+    
+    // Adjust the speed of cycling here (you can use timeouts or intervals)
+    // This is a simple example, adjust the logic to slow down the cycling
+    setTimeout(() => {
+      if (isCycling) {
+        const nextIndex = (index + 1) % names.length;
+        cycleText(nextIndex);
+        if (cycles === 0){
+          stopCyclingAndShowResult();
+        }
+        cycles-=1;
+      }
+    }, 100); // Adjust the interval duration for cycling
+  }
 
-// Logic to stop the cycling and settle on a result
-// This can be triggered after a certain duration or condition
-function stopCyclingAndShowResult() {
-  isCycling = false;
-  // Logic to determine the final result, e.g., random selection or based on a condition
-  const finalResultIndex = Math.floor(Math.random() * names.length); // Random result for example
-  resultButton.textContent = names[finalResultIndex];
-}
+  // Event listener for the button click
+  randomButton.addEventListener('click', () => {
+    characterRoll.style.display = "flex";
+    characterRoll.classList.add("slideDown");
+    randomButton.classList.add("moveAndFadeOut");
+    characterRoll.addEventListener('animationend', (event) => {
+      if (event.animationName === 'slideDown'){  
+        randomButton.style.display = "none";
+        characterRoll.classList.remove("slideDown");
+        recordButton.classList.add("moveAndFadeIn");
+        recordButton.style.display = "flex";
+      }
+    });
+    isCycling = true;
+    cycleText(0); // Start cycling through the text array
+  });
 
-// Example: Stop cycling after a certain time (adjust as needed)
-setTimeout(() => {
-  stopCyclingAndShowResult();
-}, 1500);
+  // Logic to stop the cycling and settle on a result
+  // This can be triggered after a certain duration or condition
+  function stopCyclingAndShowResult() {
+    isCycling = false;
+    // Logic to determine the final result, e.g., random selection or based on a condition
+    finalResultIndex = Math.floor(Math.random() * names.length); // Random result for example
+    characterRoll.innerHTML = names[finalResultIndex];
+    cycles = 15;
+  }
+
 
 });
 
@@ -80,8 +96,9 @@ function displayImageForName(name) {
 function sendData(audioBlob) {
 
   const formData = new FormData();
-  formData.append('audio', audioBlob, 'recording.wav')
-  formData.append("character", finalResultIndex)
+  formData.append('audio', audioBlob, 'recording.wav');
+  console.log(finalResultIndex);
+  formData.append("character", finalResultIndex);
 
   // hide visualizer & display a loading icon while we wait for the fetch
   mainElement.style.display = "none";
@@ -90,7 +107,7 @@ function sendData(audioBlob) {
   loadingIcon.addEventListener('animationend', (event) => {
     if (event.animationName === 'moveAndFadeIn'){  
       loadingIcon.classList.remove("moveAndFadeIn");
-      loadingIcon.classList.add("loadAnimation")
+      loadingIcon.classList.add("loadAnimation");
     }
   });
 
