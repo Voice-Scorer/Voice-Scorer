@@ -26,7 +26,7 @@ async function toggleRecording() {
     // auto stop after 10 seconds
     timeoutId = setTimeout(() => {
       stopRecording();
-    }, 5000);
+    }, 1000);
 
     isRecording = true;
   } else {

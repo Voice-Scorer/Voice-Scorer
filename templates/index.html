@@ -5,11 +5,10 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='index.css')}}">
 </head>
 <body>
-    
+    <div id="loadingIcon">🤔</div>
     <button id="recordButton" onclick="init()">Start Recording</button>
     <div id="returnText"></div>
-    <div class="lds-ripple"><div></div><div></div></div>
-    <main></main>
+    <main id="mainElement"></main>
     <script src="{{url_for('static', filename='recorder.js')}}"></script>
     <script src="{{url_for('static', filename='main.js')}}"></script>
     <script src="{{url_for('static', filename='visualizer.js')}}"></script>
