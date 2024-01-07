@@ -70,7 +70,7 @@ const init = () => {
       const value = values[ dataMap[ i ] ] / 255;
       const elmStyles = visualElements[ i ].style;
       elmStyles.transform = `scaleY( ${ value } )`;
-      elmStyles.opacity = Math.max( .25, value );
+      elmStyles.opacity = Math.max( .4, value );
     }
   };
 
