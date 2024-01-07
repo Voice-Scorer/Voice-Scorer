@@ -5,32 +5,11 @@ window.addEventListener('DOMContentLoaded', function() {
   const loadingIcon = document.getElementById("loadingIcon");
   const audioPlayer = document.getElementById("audioPlayer");
   const randomButton = document.getElementById("randomButton"); // New button
+  const resultButton = document.getElementById('randomButton');
 
-  const names = ["Donald Trump", "SpongeBob", "Kayne West", "Marge Simpson", "Squidward Tenticles", "Morgan Freeman", "Andrew Tate", "Kendric Lamar"];
+  const names = ["Donald Trump", "SpongeBob", "Kayne West", "Marge Simpson", "Squidward Tentacles", "Morgan Freeman", "Andrew Tate", "Kendrick Lamar"];
 
-  // Existing event listeners and functions
-
-  // New functionality for random number picking
-  randomButton.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * names.length);
-    const randomName = names[randomIndex];
-    mainElement.textContent = randomName; // Display the random name
- // Display the random number
-    mainElement.style.display = "flex";
-    mainElement.classList.add('slotMachineAnimation'); // Add slot machine animation class
-
-    displayImageForName(randomName);
-  });
-
-  // Slot machine animation end event
-  mainElement.addEventListener('animationend', (event) => {
-    if (event.animationName === 'slotMachineAnimation'){  
-      mainElement.classList.remove('slotMachineAnimation');
-    }
-  });
-
-// Ensure to define the 'slotMachineAnimation' in your CSS with appropriate keyframes
-
+  
   recordButton.addEventListener('animationend', (event) => {
     if (event.animationName === 'moveAndFadeOut'){  
       recordButton.style.display = "none";
@@ -47,6 +26,43 @@ window.addEventListener('DOMContentLoaded', function() {
     // record
     toggleRecording();
   });
+
+// Boolean flag to control the animation
+let isCycling = false;
+
+// Function to cycle through the text array
+function cycleText(index) {
+  resultButton.textContent = names[index];
+  
+  // Adjust the speed of cycling here (you can use timeouts or intervals)
+  // This is a simple example, adjust the logic to slow down the cycling
+  setTimeout(() => {
+    if (isCycling) {
+      const nextIndex = (index + 1) % names.length;
+      cycleText(nextIndex);
+    }
+  }, 100); // Adjust the interval duration for cycling
+}
+
+// Event listener for the button click
+resultButton.addEventListener('click', () => {
+  isCycling = true;
+  cycleText(0); // Start cycling through the text array
+});
+
+// Logic to stop the cycling and settle on a result
+// This can be triggered after a certain duration or condition
+function stopCyclingAndShowResult() {
+  isCycling = false;
+  // Logic to determine the final result, e.g., random selection or based on a condition
+  const finalResultIndex = Math.floor(Math.random() * names.length); // Random result for example
+  resultButton.textContent = names[finalResultIndex];
+}
+
+// Example: Stop cycling after a certain time (adjust as needed)
+setTimeout(() => {
+  stopCyclingAndShowResult();
+}, 1500);
 
 });
 
@@ -65,6 +81,7 @@ function sendData(audioBlob) {
 
   const formData = new FormData();
   formData.append('audio', audioBlob, 'recording.wav')
+  formData.append("character", finalResultIndex)
 
   // hide visualizer & display a loading icon while we wait for the fetch
   mainElement.style.display = "none";
