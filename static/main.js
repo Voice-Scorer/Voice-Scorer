@@ -3,6 +3,26 @@ window.addEventListener('DOMContentLoaded', function() {
   const mainElement = document.getElementById("mainElement");
   const returnText = document.getElementById("returnText"); 
   const loadingIcon = document.getElementById("loadingIcon");
+  const randomButton = document.getElementById("randomButton"); // New button
+
+  // Existing event listeners and functions
+
+  // New functionality for random number picking
+  randomButton.addEventListener('click', () => {
+    const randomValue = Math.floor(Math.random() * 8) + 1; // need to change this to take in the list of the people names instead of numbers
+    mainElement.textContent = randomValue; // Display the random number
+    mainElement.style.display = "flex";
+    mainElement.classList.add('slotMachineAnimation'); // Add slot machine animation class
+  });
+
+  // Slot machine animation end event
+  mainElement.addEventListener('animationend', (event) => {
+    if (event.animationName === 'slotMachineAnimation'){  
+      mainElement.classList.remove('slotMachineAnimation');
+    }
+  });
+
+// Ensure to define the 'slotMachineAnimation' in your CSS with appropriate keyframes
 
   recordButton.addEventListener('animationend', (event) => {
     if (event.animationName === 'moveAndFadeOut'){  

@@ -161,6 +161,15 @@
     animation-timing-function: cubic-bezier();
   }
 
+  @keyframes slotMachineAnimation {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+  }
+  
+  .slotMachineAnimation {
+    animation: slotMachineAnimation 1s ease-in-out;
+  }
+  
   @keyframes rotate {
     100% {
         transform: rotate(-360deg);
