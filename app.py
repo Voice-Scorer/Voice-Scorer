@@ -14,6 +14,9 @@ def get_data():
     data = request.files['audio']
     data.save('temp/recording.wav')
 
+    data = request.json
+    character_name = data.get('character')
+
     # from here do data processing and whatever function calls you got
     # ...
     # and then return it 
@@ -27,11 +30,7 @@ def get_data():
     
     # please format your return data just like this 
     accuracy_score = "65.7" # replace this variable
-    character_name = "Donald Trump" # replace this variable
-
-    print(accuracy_score)
-    print(character_name)
-
+    
     serve_audio(character_name, accuracy_score)
 
     data = {

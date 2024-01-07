@@ -14,7 +14,7 @@
     min-height: 100vh;
     text-align: center;
     color: #000;
-    background: #fef;
+    background: rgb(0, 0, 0);
   }
 
   body{
@@ -49,6 +49,14 @@
     &:hover {
       box-shadow: 0 0 30px 5px rgba( 255, 255, 255, .75 );
     }
+  }
+  
+  #randomButton {
+    animation-name: moveAndFadeIn;
+  }
+
+  #recordButton {
+    display: none;
   }
   
   #returnText {
@@ -154,24 +162,15 @@
     font-size: 5em;
   }
 
+  @keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+  }
+
   .loadAnimation {
     animation-name: rotate;
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-timing-function: cubic-bezier();
-  }
-
-  @keyframes slotMachineAnimation {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-100%); }
-  }
-  
-  .slotMachineAnimation {
-    animation: slotMachineAnimation 1s ease-in-out;
-  }
-  
-  @keyframes rotate {
-    100% {
-        transform: rotate(360deg);
-    }
   }
