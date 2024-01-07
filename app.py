@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 import os, time
 
 app = Flask(__name__)
@@ -26,14 +26,31 @@ def get_data():
         print("could not remove " + file)
     
     # please format your return data just like this 
-    accuracy_score = "420%" # replace this variable
-    character_name = "joe mama" # replace this variable
+    accuracy_score = "65.7" # replace this variable
+    character_name = "Donald Trump" # replace this variable
+
+    print(accuracy_score)
+    print(character_name)
+
+    serve_audio(character_name, accuracy_score)
+
     data = {
         "score" : accuracy_score,
         "character" : character_name
     }
 
     return jsonify(data)
+
+# serves specific audio at /audio
+@app.route('/audio/<character>/<float:score>')
+def serve_audio(character, score):
+
+    if float(score) >= 50:
+        filename = character + "_good.wav"
+    else:
+        filename = character + "_bad.wav"
+
+    return send_from_directory("static/end_sound",filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
