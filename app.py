@@ -27,7 +27,10 @@ def get_data():
     
     # please format your return data just like this 
     accuracy_score = "65.7" # replace this variable
-    character_name = "Trump" # replace this variable
+    character_name = "Donald Trump" # replace this variable
+
+    print(accuracy_score)
+    print(character_name)
 
     serve_audio(character_name, accuracy_score)
 
@@ -39,13 +42,13 @@ def get_data():
     return jsonify(data)
 
 # serves specific audio at /audio
-@app.route('/audio')
-def serve_audio(character_name, score):
+@app.route('/audio/<character>/<float:score>')
+def serve_audio(character, score):
 
     if float(score) >= 50:
-        filename = character_name + "_good.wav"
+        filename = character + "_good.wav"
     else:
-        filename = character_name + "_bad.wav"
+        filename = character + "_bad.wav"
 
     return send_from_directory("static/end_sound",filename)
 

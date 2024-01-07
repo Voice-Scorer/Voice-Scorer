@@ -6,7 +6,6 @@ window.addEventListener('DOMContentLoaded', function() {
   const audioPlayer = document.getElementById("audioPlayer");
   const randomButton = document.getElementById("randomButton"); // New button
 
-
   const names = ["Donald Trump", "SpongeBob", "Kayne West", "Marge Simpson", "Squidward Tenticles", "Morgan Freeman", "Andrew Tate", "Kendric Lamar"];
 
   // Existing event listeners and functions
@@ -92,7 +91,7 @@ function sendData(audioBlob) {
         
       // get the audio player to play the end quip
       
-      audioPlayer.src = "/audio";
+      audioPlayer.src = "/audio/" + character + "/" + score;
 
       if (score >= 50){
         returnText.innerHTML = "Good job! Your impression of " + character + "'s voice is worth " + score + " points!";
