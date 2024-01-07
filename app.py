@@ -25,10 +25,12 @@ def get_data():
     except:
         print("could not remove " + file)
     
-    # please format your data just like this 
-    data_text = "the quick brown fox jumped over the lazy dog"
+    # please format your return data just like this 
+    accuracy_score = "420%" # replace this variable
+    character_name = "joe mama" # replace this variable
     data = {
-        "return_data" : data_text
+        "score" : accuracy_score,
+        "character" : character_name
     }
 
     return jsonify(data)

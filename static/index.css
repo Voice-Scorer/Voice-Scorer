@@ -53,13 +53,9 @@
   
   #returnText {
     display: none;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    text-align: center;
     color: #fff;
     font-family: customFont;
-    text-align: center;
     font-size: 3em;
   }
 
@@ -155,7 +151,7 @@
   #loadingIcon {
     display: none;
     position: absolute;
-    font-size: 3em;
+    font-size: 5em;
   }
 
   .loadAnimation {

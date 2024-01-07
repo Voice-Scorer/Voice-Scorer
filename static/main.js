@@ -48,6 +48,7 @@ function sendData(audioBlob) {
   // display response
   .then(response => response.json())
   .then(data => {
+    // dismiss loading icon
     loadingIcon.addEventListener('animationiteration', () => {
       loadingIcon.classList.remove("loadAnimation");
       loadingIcon.classList.add("moveAndFadeOut");
@@ -56,9 +57,22 @@ function sendData(audioBlob) {
       if (event.animationName === "moveAndFadeOut"){
       loadingIcon.style.display = "none";
       loadingIcon.classList.remove("moveAndFadeOut");
+
+      // format the response and add to div
+      const score = data.score;
+      const character = data.character;
+      returnText.innerHTML = "Your score for " + character + "'s voice is " + score + "!";
+
+      // the div gets centered weird so gotta do it here
+      returnText.style.position = "absolute";
+      returnText.style.transform = "translate(-50%,-50%)";
+      returnText.style.display = "flex";
+      returnText.classList.add("moveAndFadeIn");
+
     }});
-    // display response
-    const returned_data = data.return_data;
+
+
+    
   })
 
   // error case
