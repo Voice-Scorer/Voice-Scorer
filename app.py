@@ -14,8 +14,6 @@ def get_data():
     data = request.files['audio']
     data.save('temp/recording.wav')
 
-    time.sleep(5)
-    
     # from here do data processing and whatever function calls you got
     # ...
     # and then return it 
