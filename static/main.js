@@ -18,6 +18,8 @@ window.addEventListener('DOMContentLoaded', function() {
  // Display the random number
     mainElement.style.display = "flex";
     mainElement.classList.add('slotMachineAnimation'); // Add slot machine animation class
+
+    displayImageForName(randomName);
   });
 
   // Slot machine animation end event
@@ -47,6 +49,17 @@ window.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
+function displayImageForName(name) {
+  const imageElement = document.getElementById('displayedImage');
+
+  // Assuming you have a way to determine the image source based on the name
+  const imageUrl = '/path/to/images/' + name + '.jpg'; // Modify as needed
+
+  imageElement.src = imageUrl;
+  imageElement.alt = 'Image for ' + name;
+  imageElement.style.display = 'block'; // Show the image
+}
 
 function sendData(audioBlob) {
 
