@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
 import os, time
+from voice import VoiceDectetor
 
 app = Flask(__name__)
 
@@ -11,12 +12,11 @@ def render_index():
 # at app/get_data, you can POST to this function
 @app.route('/get_data', methods=['POST'])
 def get_data():
+    voice = VoiceDectetor()
     data = request.files['audio']
     data.save('temp/recording.wav')
-
     data = request.json
     character_name = data.get('character')
-
     # from here do data processing and whatever function calls you got
     # ...
     # and then return it 
@@ -27,10 +27,8 @@ def get_data():
         os.remove(file)
     except:
         print("could not remove " + file)
-    
     # please format your return data just like this 
-    accuracy_score = "65.7" # replace this variable
-    
+    accuracy_score = voice.getVoice(character_name) # replace this variable
     serve_audio(character_name, accuracy_score)
 
     data = {
